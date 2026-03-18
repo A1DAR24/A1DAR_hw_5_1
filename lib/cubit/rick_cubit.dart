@@ -1,25 +1,39 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:lesson_5_1/model/rick_model.dart';
-import 'package:lesson_5_1/repository.dart';
-import 'package:meta/meta.dart';
+import 'package:lesson_5_1/data/model/rick_model.dart';
+import 'package:lesson_5_1/domain/usecase/get_character_detail_usecase.dart';
+import 'package:lesson_5_1/domain/usecase/get_characters_usecase.dart';
+
 
 part 'rick_state.dart';
 
 @Injectable()
 class RickCubit extends Cubit<RickState> {
-  final Repository repository;
-  RickCubit({required this.repository}) : super(RickInitial());
+  final GetCharactersUsecase _getCharactersUsecase;
+  final GetCharacterDetailUsecase _getCharacterDetailUsecase;
+  RickCubit({required GetCharactersUsecase getCharactersUsecase, required GetCharacterDetailUsecase getCharacterDetailUsecase})
+    : _getCharactersUsecase = getCharactersUsecase,
+    _getCharacterDetailUsecase = getCharacterDetailUsecase,
+      super(RickInitial());
 
-  void getCharacters() async{
+  void getCharacters() async {
     emit(LoadingState());
-    final response = await repository.getCharacters();
-    emit(SuccesState(rickModel: response));
+    final either = await _getCharactersUsecase.call(NoParam());
+    either.fold(
+      (failure) => emit(ErrorState(failure.message)),
+      (response) => emit(SuccesState(response)),
+    );
   }
 
-  void getCharacterDeteil(int id) async{
+  void getCharacterDetail(int id) async {
     emit(LoadingState());
-    final response = await repository.getDeteilCharacter(id);
-    emit(SuccesDeteilState(rickResults: response));
+    final either = await _getCharacterDetailUsecase.call(id);
+    
+    either.fold(
+      (failure) => emit(ErrorState(failure.message)),
+      (character) => emit(SuccesDeteilState(rickResults: character)), 
+    );
   }
+
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lesson_5_1/cubit/rick_cubit.dart';
-import 'package:lesson_5_1/di/inject_model.dart';
+import 'package:lesson_5_1/app/di/inject_model.dart';
 
 class DeteilPage extends StatefulWidget {
   final int id;
@@ -26,13 +25,13 @@ class _DeteilPageState extends State<DeteilPage> {
   @override
   void initState() {
     super.initState();
-    cubit = getIt<RickCubit>()..getCharacterDeteil(widget.id);
+    cubit = getIt<RickCubit>()..getCharacterDetail(widget.id);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true, // Картинка будет заходить под AppBar
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -46,7 +45,6 @@ class _DeteilPageState extends State<DeteilPage> {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  // Верхняя часть с картинкой
                   Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
@@ -56,7 +54,6 @@ class _DeteilPageState extends State<DeteilPage> {
                         height: 400,
                         fit: BoxFit.cover,
                       ),
-                      // Градиент, чтобы имя читалось на любом фоне
                       Container(
                         height: 100,
                         decoration: BoxDecoration(
@@ -70,7 +67,7 @@ class _DeteilPageState extends State<DeteilPage> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          item.name, // Исправлено: теперь выводит имя из модели
+                          item.name, 
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 32,
@@ -92,20 +89,5 @@ class _DeteilPageState extends State<DeteilPage> {
     );
   }
 
-  // Маленький вспомогательный виджет для строк
-  Widget _buildDetailRow(String label, String value, Color color) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: const TextStyle(fontSize: 16, color: Colors.grey)),
-          Text(
-            value,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: color),
-          ),
-        ],
-      ),
-    );
-  }
+  
 }

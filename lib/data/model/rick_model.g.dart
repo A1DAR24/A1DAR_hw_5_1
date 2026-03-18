@@ -16,8 +16,15 @@ Map<String, dynamic> _$RickModelToJson(RickModel instance) => <String, dynamic>{
   'results': instance.results,
 };
 
-RickResults _$RickResultsFromJson(Map<String, dynamic> json) =>
-    RickResults(name: json['name'] as String, image: json['image'] as String, id: json['id']);
+RickResults _$RickResultsFromJson(Map<String, dynamic> json) => RickResults(
+  name: json['name'] as String,
+  image: json['image'] as String,
+  id: (json['id'] as num).toInt(),
+);
 
 Map<String, dynamic> _$RickResultsToJson(RickResults instance) =>
-    <String, dynamic>{'name': instance.name, 'image': instance.image};
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'image': instance.image,
+    };

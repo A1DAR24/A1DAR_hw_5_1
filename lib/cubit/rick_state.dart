@@ -7,12 +7,17 @@ final class RickInitial extends RickState {}
 
 final class LoadingState extends RickState {}
 
-final class ErrorState extends RickState {}
+final class ErrorState extends RickState {
+  final String error;
+
+  ErrorState(this.error);
+  
+}
 
 final class SuccesState extends RickState {
   final RickModel rickModel;
 
-  SuccesState({required this.rickModel});
+  SuccesState( this.rickModel);
 }
 
 final class SuccesDeteilState extends RickState {
