@@ -28,3 +28,19 @@ Map<String, dynamic> _$RickResultsToJson(RickResults instance) =>
       'name': instance.name,
       'image': instance.image,
     };
+
+QuizModel _$QuizModelFromJson(Map<String, dynamic> json) => QuizModel(
+  category: json['category'] as String,
+  question: json['question'] as String,
+  correctAnswer: json['correct_answer'] as String,
+  incorrectAnswers: (json['incorrect_answers'] as List<dynamic>)
+      .map((e) => e as String)
+      .toList(),
+);
+
+Map<String, dynamic> _$QuizModelToJson(QuizModel instance) => <String, dynamic>{
+  'category': instance.category,
+  'question': instance.question,
+  'correct_answer': instance.correctAnswer,
+  'incorrect_answers': instance.incorrectAnswers,
+};

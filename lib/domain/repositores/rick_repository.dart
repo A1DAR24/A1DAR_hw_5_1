@@ -6,4 +6,5 @@ abstract class RickRepository {
   Future<Either<Failure, RickModel>> getCharacters();
   
   Future<Either<Failure, RickResults>> getCharacterDetail(int id);
+  Future<Either<Failure, List<QuizModel>>> getQuiz();
 }

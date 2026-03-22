@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lesson_5_1/cubit/rick_cubit.dart';
-import 'package:lesson_5_1/screen/deteil_page.dart';
+import 'package:lesson_5_1/presentation/cubit/rick/rick_cubit.dart';
+import 'package:lesson_5_1/presentation/screen/deteil_page.dart';
 import 'package:lesson_5_1/app/di/inject_model.dart';
 
 class HomePage extends StatefulWidget {

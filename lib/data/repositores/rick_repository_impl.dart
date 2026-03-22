@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lesson_5_1/core/error/failure.dart';
+import 'package:lesson_5_1/data/data_sours/quiz_api_service.dart';
 import 'package:lesson_5_1/data/data_sours/rick_api_service.dart';
 import 'package:lesson_5_1/data/model/rick_model.dart';
 import 'package:lesson_5_1/domain/repositores/rick_repository.dart';
@@ -37,5 +38,17 @@ Future<Either<Failure, RickResults>> getCharacterDetail(int id) async {
     return Left(UnImplementedFailure(message: e.toString()));
   }
 }
+
+  @override
+  Future<Either<Failure, List<QuizModel>>> getQuiz() async{
+    try {
+    final list = await QuizApiService().getQuiz();
+    return Right(list);
+  } on DioException catch (e) {
+    return Left(ServerFailure(message: e.response?.data['error'] ?? "Not found"));
+  } catch (e) {
+    return Left(UnImplementedFailure(message: e.toString()));
+  }
+  }
 
 }

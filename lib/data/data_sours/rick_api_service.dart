@@ -6,6 +6,8 @@ import 'package:lesson_5_1/data/model/rick_model.dart';
 
 @Injectable()
 class RickApiService{
+
+  
   Future<RickModel> getCharacters() async{
     final dio = Dio();
     final response = await dio.get("https://rickandmortyapi.com/api/character");

@@ -12,12 +12,15 @@
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
-import '../../cubit/rick_cubit.dart' as _i1021;
+import '../../data/data_sours/quiz_api_service.dart' as _i621;
 import '../../data/data_sours/rick_api_service.dart' as _i257;
 import '../../data/repositores/rick_repository_impl.dart' as _i688;
 import '../../domain/repositores/rick_repository.dart' as _i402;
 import '../../domain/usecase/get_character_detail_usecase.dart' as _i421;
 import '../../domain/usecase/get_characters_usecase.dart' as _i192;
+import '../../domain/usecase/get_quiz_usecase.dart' as _i420;
+import '../../presentation/cubit/quiz/quiz_cubit.dart' as _i1036;
+import '../../presentation/cubit/rick/rick_cubit.dart' as _i730;
 import '../../repository.dart' as _i985;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -27,6 +30,7 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    gh.factory<_i621.QuizApiService>(() => _i621.QuizApiService());
     gh.factory<_i257.RickApiService>(() => _i257.RickApiService());
     gh.factory<_i985.Repository>(() => _i985.Repository());
     gh.lazySingleton<_i402.RickRepository>(
@@ -40,11 +44,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i192.GetCharactersUsecase>(
       () => _i192.GetCharactersUsecase(repository: gh<_i402.RickRepository>()),
     );
-    gh.factory<_i1021.RickCubit>(
-      () => _i1021.RickCubit(
+    gh.lazySingleton<_i420.GetQuizUsecase>(
+      () => _i420.GetQuizUsecase(repository: gh<_i402.RickRepository>()),
+    );
+    gh.factory<_i730.RickCubit>(
+      () => _i730.RickCubit(
         getCharactersUsecase: gh<_i192.GetCharactersUsecase>(),
         getCharacterDetailUsecase: gh<_i421.GetCharacterDetailUsecase>(),
       ),
+    );
+    gh.factory<_i1036.QuizCubit>(
+      () => _i1036.QuizCubit(gh<_i420.GetQuizUsecase>()),
     );
     return this;
   }

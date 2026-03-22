@@ -21,3 +21,28 @@ class RickResults{
 
   factory RickResults.fromJson(Map<String, dynamic> json) => _$RickResultsFromJson(json);
 }
+
+@JsonSerializable()
+class QuizModel {
+  final String category;
+  final String question;
+  @JsonKey(name: 'correct_answer')
+  final String correctAnswer;
+  @JsonKey(name: 'incorrect_answers')
+  final List<String> incorrectAnswers; 
+
+  QuizModel({
+    required this.category,
+    required this.question,
+    required this.correctAnswer,
+    required this.incorrectAnswers,
+  });
+
+  List<String> get allAnswers {
+    final list = [correctAnswer, ...incorrectAnswers];
+    list.shuffle(); 
+    return list;
+  }
+
+  factory QuizModel.fromJson(Map<String, dynamic> json) => _$QuizModelFromJson(json);
+}
