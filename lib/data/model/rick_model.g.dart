@@ -7,13 +7,15 @@ part of 'rick_model.dart';
 // **************************************************************************
 
 RickModel _$RickModelFromJson(Map<String, dynamic> json) => RickModel(
-  results: (json['results'] as List<dynamic>)
+  InfoModel.fromJson(json['info'] as Map<String, dynamic>),
+  (json['results'] as List<dynamic>)
       .map((e) => RickResults.fromJson(e as Map<String, dynamic>))
       .toList(),
 );
 
 Map<String, dynamic> _$RickModelToJson(RickModel instance) => <String, dynamic>{
   'results': instance.results,
+  'info': instance.info,
 };
 
 RickResults _$RickResultsFromJson(Map<String, dynamic> json) => RickResults(
@@ -28,6 +30,14 @@ Map<String, dynamic> _$RickResultsToJson(RickResults instance) =>
       'name': instance.name,
       'image': instance.image,
     };
+
+InfoModel _$InfoModelFromJson(Map<String, dynamic> json) =>
+    InfoModel(json['next'] as String?, json['prev'] as String?);
+
+Map<String, dynamic> _$InfoModelToJson(InfoModel instance) => <String, dynamic>{
+  'next': instance.next,
+  'prev': instance.prev,
+};
 
 QuizModel _$QuizModelFromJson(Map<String, dynamic> json) => QuizModel(
   category: json['category'] as String,

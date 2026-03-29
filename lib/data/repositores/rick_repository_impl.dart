@@ -16,9 +16,9 @@ class RickRepositoryImpl implements RickRepository {
 
 
   @override
-  Future<Either<Failure, RickModel>> getCharacters() async{
+  Future<Either<Failure, RickModel>> getCharacters({String? nextUrl}) async{
     try{
-      final list = await apiService.getCharacters();
+      final list = await apiService.getCharacters(nextUrl: nextUrl);
       return Right(list);
     }on DioException catch(e){
       return Left(ServerFailure(message: e.response?.data['message'] ?? "Server error" ));

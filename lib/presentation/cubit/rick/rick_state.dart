@@ -9,19 +9,12 @@ final class LoadingState extends RickState {}
 
 final class ErrorState extends RickState {
   final String error;
-
   ErrorState(this.error);
-  
 }
 
 final class SuccesState extends RickState {
-  final RickModel rickModel;
+  final List<RickResults> allCharacters;
+  final bool hasNext; 
 
-  SuccesState( this.rickModel);
-}
-
-final class SuccesDeteilState extends RickState {
-  final RickResults rickResults;
-
-  SuccesDeteilState({required this.rickResults});
+  SuccesState({required this.allCharacters, required this.hasNext});
 }
